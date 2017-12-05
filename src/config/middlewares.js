@@ -1,0 +1,16 @@
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import helmet from 'helmet';
+import compression from 'compression';
+
+export default app => {
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(cors());
+  app.use(helmet());
+  app.use(compression());
+  if (process.env.NODE_ENV === 'development') {
+    const morgan = require('morgan');
+    app.use(morgan('dev'));
+  }
+};
